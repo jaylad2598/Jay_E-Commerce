@@ -134,7 +134,7 @@
 
             $.ajax({
                 type : "GET",
-                url : "/status/"+id,
+                url : "user/status/"+id,
                 data : {
                     id:id,
                     status:status
