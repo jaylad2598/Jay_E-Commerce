@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
 
@@ -131,12 +132,46 @@ class ProductController extends Controller
             $cart->userid = Auth::id();
             $cart->save();
 
-            return view('cart-index');
+            return redirect('/product-index');
     }
 
     public function cartlist()
     {
         $uid = Auth::id();
-       $cart = DB::table('cart')->join('product','cart.productid','=','product.id')->where('cart.userid',$uid)->select('product.*')->get();
+        $product = DB::table('carts')->join('products','carts.productid','products.id')->select('products.*')->where('carts.userid',$uid)->get();
+        return view('cart-index',['product'=>$product]);
+    }
+
+    public function removecart($id)
+    {
+        Cart::destroy($id);
+        return redirect('/cart-index');
+    }
+
+    public function ordernow()
+    {
+        $uid = Auth::id();
+        $total =  DB::table('carts')->join('products','carts.productid','products.id')->select('products.*')->where('carts.userid',$uid)->sum('products.price');
+        return view('ordernow',['total'=>$total]);
+    }
+
+    public function orderplaced(Request $request)
+    {
+        $uid = Auth::id();
+        $cartdata = Cart::where('userid',$uid)->get();
+
+        foreach($cartdata as $cart)
+        {
+            $order = new Order;
+            $order->productid=$cart['productid'];
+            $order->userid=$cart['userid'];
+            $order->status='paid';
+            $order->payment=$request->payment;
+            $order->save();
+        }
+        Cart::where('userid',$uid)->delete();
+        return redirect('home');
+
+        //return $request->input();
     }
 }

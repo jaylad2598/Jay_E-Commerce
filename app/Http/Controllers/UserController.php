@@ -95,7 +95,7 @@ class UserController extends Controller
         return redirect('/user-index');
     }
 
-    public function updateStatus(Request $request)
+    public function userupdateStatus(Request $request)
     {
         User::where('id',$request->id)->update([
             'status' => $request->status

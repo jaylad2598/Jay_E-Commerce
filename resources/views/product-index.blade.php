@@ -135,7 +135,7 @@
 
             $.ajax({
                 type : "GET",
-                url : "/status/"+id,
+                url : "/product/status/"+id,
                 data : {
                     id:id,
                     status:status
