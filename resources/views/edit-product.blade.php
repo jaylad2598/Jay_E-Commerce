@@ -49,13 +49,6 @@
                                     <input type="text" name="productdescription" value="{{ $product->description }}" class="form-control" placeholder="Enter Product Description" />
                                 </div>
 
-                                <div class="from-group" style="padding:5px">
-                                        <lable>Product Status</lable>    
-                                        <select name="productstatus">
-                                        <option value="available">Available</option>
-                                        <option value="Unavailable">Unavailable</option>
-                                    </select>
-                                </div>
 
                                 <button type="submit">Update Product</button>
                             </form>

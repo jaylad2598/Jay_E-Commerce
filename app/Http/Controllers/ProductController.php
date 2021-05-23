@@ -47,6 +47,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        
         $products = new Product;
         $products->name = $request->input('productname');
         $products->category = $request->input('productcategory');
@@ -54,6 +55,17 @@ class ProductController extends Controller
         $products->description = $request->input('productdescription');
         $products->status = "Avaliable";
 
+        if($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/products/'.$filename);
+            $products->image = $filename;
+        }else{
+            return $request;
+            $products->image = '';
+        }
         $products->save();
         return redirect('product-index');
     }
@@ -91,12 +103,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        
+
         $product = Product::where('id',$id)->update([
             'name' => $request->input('productname'),
             'category' => $request->input('productcategory'),
             'price' => $request->input('productprice'),
             'description' => $request->input('productdescription'),
-            'status' => $request->input('productstatus')
+        
+            
+
          ]);
          return redirect('/product-index');
     }
@@ -109,6 +126,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        
         Product::destroy($id);
         return redirect('/product-index');
     }
@@ -132,13 +150,13 @@ class ProductController extends Controller
             $cart->userid = Auth::id();
             $cart->save();
 
-            return redirect('/product-index');
+            return redirect('/activeproduct-index');
     }
 
     public function cartlist()
     {
         $uid = Auth::id();
-        $product = DB::table('carts')->join('products','carts.productid','products.id')->select('products.*')->where('carts.userid',$uid)->get();
+        $product = DB::table('products')->join('carts','carts.productid','products.id')->where('carts.userid',$uid)->get();
         return view('cart-index',['product'=>$product]);
     }
 

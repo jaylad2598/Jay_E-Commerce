@@ -19,6 +19,10 @@
                 <h3 class="card-title">View Product Details</h3>
                 <a href="/add-product" style="float:right">Add Product</a>
               </div>
+
+              <div>
+                <input type="text" name="search" id="search" class="form-control" placeholder="Search Data"/>
+              </div>
               <!-- ./card-header -->
               <div class="card-body">
                 <table class="table table-bordered table-hover">
@@ -105,7 +109,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type : "GET",
-                        url : "/delete/"+id,
+                        url : "/product/delete/"+id,
                         success: function (response){
                             Swal.fire({
                                 position: 'top-middle',

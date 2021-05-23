@@ -104,7 +104,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type : "GET",
-                        url : "/delete/"+id,
+                        url : "/user/delete/"+id,
                         success: function (response){
                             Swal.fire({
                                 position: 'top-middle',
