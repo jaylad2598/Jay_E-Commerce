@@ -69,7 +69,7 @@
               </p>
             </a>
 
-            <a href="#" class="nav-link">
+            <a href="/order-index" class="nav-link">
               <p>
                 Orders
               </p>

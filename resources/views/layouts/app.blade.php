@@ -44,6 +44,10 @@
                         <a class="nav-link" href="/cart-index" class="fa fa-shopping-cart">Cart</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/activeproduct-index" class="fa fa-shopping-cart">Products</a>
+                    </li>
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

@@ -17,9 +17,7 @@
                     <div class="card" style="margin:50px">
                         <div class="card-header">
                             Add Product
-                        </div>
-
-                        
+                        </div>           
 
                         <div class="card-body">    
                             <form method="post" action="/product-index" enctype="multipart/form-data"> 
@@ -49,6 +47,10 @@
                                     <input type="text" name="productdescription" class="form-control" placeholder="Enter Product Description" />
                                 </div>
 
+                                <div class="from-group" style="padding:5px">
+                                    <lable>Product Description</lable>
+                                    <input type="file" name="image" class="form-control" />
+                                </div>
 
                                 <button type="submit">Add Product</button>
                                 
