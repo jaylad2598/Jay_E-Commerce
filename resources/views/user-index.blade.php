@@ -17,6 +17,10 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">View User Details</h3>
+                <h4 class="card-title" style="float:right">Total User Is : {{ $totaluser }}</h4><br>
+                <h4 class="card-title" style="float:right">Total Active User Is : {{ $activeuser }}</h4><br>
+                <h4 class="card-title" style="float:right">Total InActive User Is : {{ $inactiveuser }}</h4>
+                
               </div>
               <!-- ./card-header -->
               <div class="card-body">

@@ -26,7 +26,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(5);
-        return view('product-index', ['products' => $products]);
+        $totalproduct = Product::count();
+        $avaliable = Product::where('status','=','Avaliable')->count();
+        $unavaliable = Product::where('status','=','Unavaliable')->count();
+        return view('product-index', compact('products','totalproduct','avaliable','unavaliable'));
     }
 
     /**

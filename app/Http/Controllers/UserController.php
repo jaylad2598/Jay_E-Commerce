@@ -20,7 +20,11 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(8);
-        return view('user-index', ['users' => $users]);
+        $totaluser = User::count();
+        $activeuser = User::where('status','=','Active')->count();
+        $inactiveuser = User::where('status','=','InActive')->count();
+        return view('user-index',compact('users','totaluser','activeuser','inactiveuser'));
+
     }
 
     /**
