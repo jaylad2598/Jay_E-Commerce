@@ -17,7 +17,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">View Product Details</h3>
-                <a href="/add-product" style="float:right">Add Product</a>
+                <a href="/add-product" style="float:right">Add Product</a><br><br>
+
+                <h4 class="card-title" style="float:right">Total Product Is : {{ $totalproduct }}</h4><br>
+                <h4 class="card-title" style="float:right">Total Avaliable Product : {{ $avaliable }}</h4><br>
+                <h4 class="card-title" style="float:right">Total Unavaliable Product : {{ $unavaliable }}</h4>
               </div>
 
               <div>
