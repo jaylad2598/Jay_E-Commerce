@@ -9,7 +9,6 @@ use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 
-
 class ProductController extends Controller
 {
     /**
@@ -50,7 +49,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $products = new Product;
         $products->name = $request->input('productname');
         $products->category = $request->input('productcategory');
@@ -92,7 +91,7 @@ class ProductController extends Controller
      */
     public function edit(Product $id)
     {
-        
+
         $product = Product::find($id);
         return view('/edit-product')->with('product',$id);
     }
@@ -107,15 +106,15 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
 
-        
+
 
         $product = Product::where('id',$id)->update([
             'name' => $request->input('productname'),
             'category' => $request->input('productcategory'),
             'price' => $request->input('productprice'),
             'description' => $request->input('productdescription'),
-        
-            
+
+
 
          ]);
          return redirect('/product-index');
@@ -129,7 +128,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        
+
         Product::destroy($id);
         return redirect('/product-index');
     }
@@ -147,7 +146,7 @@ class ProductController extends Controller
 
     public function addtocart(Request $request)
     {
-        
+
             $cart = new Cart;
             $cart->productid = $request->productid;
             $cart->userid = Auth::id();
@@ -194,5 +193,16 @@ class ProductController extends Controller
         return redirect('home');
 
         //return $request->input();
+    }
+
+    public function findProduct(Request $request)
+    {
+        $findingdata = $request->input('searchproduct');
+        $products = Product::where('name','LIKE',"%" .$findingdata ."%")
+        ->get();
+        $totalproduct = Product::count();
+        $avaliable = Product::where('status','=','Avaliable')->count();
+        $unavaliable = Product::where('status','=','Unavaliable')->count();
+        return view('product-index',compact('totalproduct','avaliable','unavaliable'))->with('products',$products);
     }
 }

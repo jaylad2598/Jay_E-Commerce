@@ -52,24 +52,25 @@ class LoginController extends Controller
         $user = User::where("email",$input['email'])->get();
         if(($user[0]->status == "Active"))
         {
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-           if(auth()->user()->is_admin == 1)
-           {
-               return redirect()->route('admin.home');
-           }
-           elseif(auth()->user()->is_admin == 0)
-           {
-                return redirect()->route('home');
-           }
+            if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+            {
+                if(auth()->user()->is_admin == 1)
+                {
+                    return redirect()->route('admin.home');
+                }
+                elseif(auth()->user()->is_admin == 0)
+                {
+                    return redirect()->route('home');
+                }
+            }
+            else
+            {
+                return redirect()->route('login')->with('error', 'Email of Password are wrong.');
+            }
         }
         else
         {
-            return redirect()->route('login')->with('error', 'Email of Password are wrong.');
+         return redirect()->route('login')->with('error', 'Your Account is Blocked...');
         }
-    }
-    else{
-        return redirect()->route('login')->with('error', 'Your Account is Blocked...');
-    }
     }
 }

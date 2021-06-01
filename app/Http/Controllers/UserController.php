@@ -26,7 +26,6 @@ class UserController extends Controller
         return view('user-index',compact('users','totaluser','activeuser','inactiveuser'));
 
     }
-
     /**
      * Show the form for creating a new resource.
      *
