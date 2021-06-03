@@ -18,6 +18,7 @@
                       <th>Category</th>
                       <th>Price</th>
                       <th>description</th>
+                      <th>Image</th>
                       <th>Cart</th>
                     </tr>
                   </thead>
@@ -28,27 +29,28 @@
                       <td>{{ $activeproducts->category }}</td>
                       <td>{{ $activeproducts->price }}</td>
                       <td>{{ $activeproducts->description }}</td>
+                      <td><img src="{{ asset('img/'.$activeproducts->image) }}" height="100px" width="100px"></td>
 
                       <td>
                         <form action="add_to_cart" method="post">
                           @csrf
-                          <input type="hidden" name="productid" value="{{ $activeproducts->id }}"> 
-                                    <button class="fa fa-shopping-cart">Cart</button> 
+                          <input type="hidden" name="productid" value="{{ $activeproducts->id }}">
+                                    <button class="fa fa-shopping-cart">Cart</button>
                         </form>
-                        
+
                       </td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
               </div>
-             
+
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div>
         </div>
-        
+
         </div>
 
     </section>

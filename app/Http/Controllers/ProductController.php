@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
+use App\Models\CartProduct;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -22,9 +24,18 @@ class ProductController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(5);
+        $products = new Product;
+        if(!empty($request->searchproduct)) {
+            $products = $products->where('name','LIKE',"%" .$request->searchproduct ."%");
+        }
+
+        if(!empty($request->filterdata)) {
+            $products = $products-> where('category','=',$request->filterdata);
+        }
+
+        $products = $products->paginate(5);
         $totalproduct = Product::count();
         $avaliable = Product::where('status','=','Avaliable')->count();
         $unavaliable = Product::where('status','=','Unavaliable')->count();
@@ -50,24 +61,17 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
+        $imageName = $request->file('image')->getClientOriginalName();
+        $request->image->move(public_path('img'), $imageName);
+
         $products = new Product;
         $products->name = $request->input('productname');
         $products->category = $request->input('productcategory');
         $products->price = $request->input('productprice');
         $products->description = $request->input('productdescription');
         $products->status = "Avaliable";
+        $products->image=$imageName;
 
-        if($request->hasfile('image'))
-        {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/products/'.$filename);
-            $products->image = $filename;
-        }else{
-            return $request;
-            $products->image = '';
-        }
         $products->save();
         return redirect('product-index');
     }
@@ -158,8 +162,9 @@ class ProductController extends Controller
     public function cartlist()
     {
         $uid = Auth::id();
-        $product = DB::table('products')->join('carts','carts.productid','products.id')->where('carts.userid',$uid)->get();
-        return view('cart-index',['product'=>$product]);
+       // $product = DB::table('products')->join('carts','carts.productid','products.id')->where('carts.userid',$uid)->get();
+       $product = Cart::where('userid',$uid)->with('products')->get();
+       return view('cart-index',['product'=>$product]);
     }
 
     public function removecart($id)
@@ -171,7 +176,20 @@ class ProductController extends Controller
     public function ordernow()
     {
         $uid = Auth::id();
-        $total =  DB::table('carts')->join('products','carts.productid','products.id')->select('products.*')->where('carts.userid',$uid)->sum('products.price');
+        //$total =  DB::table('carts')->join('products','carts.productid','products.id')->select('products.*')->where('carts.userid',$uid)->sum('products.price');
+        //$total = Cart::with('products')->get();
+        // $product = Cart::with('products')->get();
+        $product = User::where('id',$uid)->with(['carts', 'carts.product'])->first();
+        // $product = CartProduct::with('products')->get();
+
+        // echo "<pre>";
+        // print_r($product->toArray());
+        // die;
+        $total = 0;
+        foreach($product->carts as $item)
+        {
+            $total = $total + $item->product->price;
+        }
         return view('ordernow',['total'=>$total]);
     }
 
@@ -193,16 +211,5 @@ class ProductController extends Controller
         return redirect('home');
 
         //return $request->input();
-    }
-
-    public function findProduct(Request $request)
-    {
-        $findingdata = $request->input('searchproduct');
-        $products = Product::where('name','LIKE',"%" .$findingdata ."%")
-        ->get();
-        $totalproduct = Product::count();
-        $avaliable = Product::where('status','=','Avaliable')->count();
-        $unavaliable = Product::where('status','=','Unavaliable')->count();
-        return view('product-index',compact('totalproduct','avaliable','unavaliable'))->with('products',$products);
     }
 }

@@ -29,11 +29,21 @@
               </div>
 
             <div>
-                <form action="/search" method="post">
-                    @csrf
+                <form action="" method="get">
                     <label>Search  Data : </label>
                     <input type="text" id="searchproduct" name="searchproduct" placeholder="Search........" />
                     <button name="submit">Submit</button>
+                </form>
+
+                <form action="" method="get">
+                    @csrf
+                    <label>Filter Category</label>
+                        <select name="filterdata">
+                            <option value="samsung">Samsung</option>
+                            <option value="apple">Apple</option>
+                            <option value="vivo">Vivo</option>
+                        </select>
+                        <button name="submit">Submit</button>
                 </form>
 
             </div>
@@ -91,7 +101,7 @@
                   </tbody>
                 </table>
               </div>
-             {{-- <span>{{ $products->links()}}</span> --}}
+             <span>{{ $products->links() }}</span>
               <!-- /.card-body -->
             </div>
             <!-- /.card -->

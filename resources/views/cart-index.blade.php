@@ -27,13 +27,14 @@
                   </thead>
                   <tbody>
                   @foreach($product as $prd)
-                    <tr class="todo-{{$prd->id}}" id="{{ $prd->id }}" data-widget="expandable-table" aria-expanded="false">
-                      <td> {{ $prd->name }}</td>
-                      <td>{{ $prd->description}}</td>
-                      <td>{{ $prd->price }}</td>
+
+                    <tr class="todo-{{$prd->product->id}}" id="{{ $prd->product->id }}" data-widget="expandable-table" aria-expanded="false">
+                      <td> {{ $prd->product->name }}</td>
+                      <td>{{ $prd->product->description}}</td>
+                      <td>{{ $prd->product->price }}</td>
                       <td>
                         <a style="margin-top: 5px;" href="#" class="fa fa-trash-o delete_btn"></a>
-                        
+
                       </td>
                     </tr>
                     @endforeach
@@ -46,7 +47,7 @@
             <!-- /.card -->
           </div>
         </div>
-        
+
         </div>
     </section>
 @endsection

@@ -24,7 +24,7 @@
                   <thead>
                     <tr>
                       <th>User Id</th>
-                      <th>Product</th>
+                      <th>Product Id</th>
                       <th>Status</th>
                       <th>Payment</th>
                     </tr>
@@ -41,19 +41,19 @@
                     </tr>
                     @endforeach
                   </tbody>
-                  
+
                 </table>
-                
+
               </div>
               <span>{{ $orders->links()}}</span>
               <!-- /.card-body -->
             </div>
-            
+
             <!-- /.card -->
           </div>
         </div>
-       
-    
+
+
         </div>
 
     </section>

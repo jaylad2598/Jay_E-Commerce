@@ -11,4 +11,11 @@ class Product extends Model
     protected $table = "products";
 
     protected $fillable = ['name','category','price','description','status','image'];
+
+    public function getnameAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }
+
+
