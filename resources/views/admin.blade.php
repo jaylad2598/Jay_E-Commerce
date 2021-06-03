@@ -7,7 +7,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Admin</h1>
-            
+
           </div><!-- /.col -->
           <div class="col-sm-6">
 
@@ -27,7 +27,8 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
-
+        <h2 class="card-title">Total Product Is : {{ $totalproduct }}</h2><br>
+        <h2 class="card-title">Total User : {{ $totaluser }}</h2><br>
     </section>
     <!-- /.content -->
 @endsection

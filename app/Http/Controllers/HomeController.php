@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,9 @@ class HomeController extends Controller
 
     public function adminhome()
     {
-        return view('admin');
+        $totalproduct = Product::count();
+        $totaluser = User::count();
+        return view('admin',compact('totalproduct','totaluser'));
     }
 
 }
