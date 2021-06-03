@@ -11,7 +11,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                        
+
     <section>
         <div class="container">
             <div class="row">
@@ -21,31 +21,31 @@
                             Update Product
                         </div>
                         <div class="card-body">
-                            
-                            <form method="POST" action="/product/update/{{ $product->id }}" enctype="multipart/form-data"> 
+
+                            <form method="POST" action="/product/update/{{ $product->id }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="from-group" style="padding:5px">
-                                    <lable>Product Name</lable>
+                                    <label>Product Name</label>
                                     <input type="text" name="productname" value="{{ $product->name }}" class="form-control" placeholder="Enter Product Name" />
                                 </div>
 
                                 <div class="from-group" style="padding:5px">
-                                <lable>Product Category</lable>
-                                    <select name="productcategory">
-                                        <option value="samsung">Samsung</option>
-                                        <option value="apple">Apple</option>
-                                        <option value="vivo">Vivo</option>
-                                    </select>
+                                <label>Product Category</label>
+                                <select name="productcategory">
+                                    @foreach($category as $category)
+                                    <option value="{{ $category->title }}">{{ $category->title }}</option>
+                                    @endforeach
+                                </select>
                                 </div>
 
-                                
+
                                 <div class="from-group" style="padding:5px">
-                                    <lable>Product Price</lable>
+                                    <label>Product Price</label>
                                     <input type="text" name="productprice" value="{{ $product->price }}" class="form-control" placeholder="Enter Product Price" />
                                 </div>
 
                                 <div class="from-group" style="padding:5px">
-                                    <lable>Product Description</lable>
+                                    <label>Product Description</label>
                                     <input type="text" name="productdescription" value="{{ $product->description }}" class="form-control" placeholder="Enter Product Description" />
                                 </div>
 

@@ -29,11 +29,13 @@
 
                                 <div class="from-group" style="padding:5px">
                                 <label>Product Category</label>
+
                                     <select name="productcategory">
-                                        <option value="samsung">Samsung</option>
-                                        <option value="apple">Apple</option>
-                                        <option value="vivo">Vivo</option>
+                                        @foreach($category as $category)
+                                        <option value="{{ $category->title }}">{{ $category->title }}</option>
+                                        @endforeach
                                     </select>
+
                                 </div>
 
 

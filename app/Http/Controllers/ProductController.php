@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\CartProduct;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('add-product');
+        $category = Category::all();
+        return view('add-product',['category'=>$category]);
     }
 
     /**
@@ -60,6 +62,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
 
         $imageName = $request->file('image')->getClientOriginalName();
         $request->image->move(public_path('img'), $imageName);
@@ -97,7 +100,8 @@ class ProductController extends Controller
     {
 
         $product = Product::find($id);
-        return view('/edit-product')->with('product',$id);
+        $category = Category::all();
+        return view('/edit-product',['category'=>$category])->with('product',$id);
     }
 
     /**
@@ -109,17 +113,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
-
         $product = Product::where('id',$id)->update([
             'name' => $request->input('productname'),
             'category' => $request->input('productcategory'),
             'price' => $request->input('productprice'),
             'description' => $request->input('productdescription'),
-
-
-
          ]);
          return redirect('/product-index');
     }
