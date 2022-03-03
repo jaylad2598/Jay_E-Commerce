@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,8 @@ Route::get('order-index',[OrderController::class,'index']);
 
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 Route::get('admin/home',[HomeController::class, 'adminhome'])->name('admin.home')->middleware('is_admin');
+
+
+// For Third Party API routes
+Route::get('post',[DataController::class,'postRequest']);
+Route::get('get','DataController@getRequest');
