@@ -8,7 +8,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DataController;
-
+use App\Http\Controllers\RazorpayPaymentController;
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,8 @@ Auth::routes();
 Route::get('product-index',[ProductController::class,'index']);
 Route::get('add-product',[ProductController::class,'create']);
 Route::post('product-index',[ProductController::class,'store']);
+Route::get('filterproduct',[ProductController::class,'filterproduct']);
+
 Route::get('/edit-product/{id}',[ProductController::class,'edit']);
 Route::post('/product/update/{id}',[ProductController::class,'update']);
 Route::get('/product/delete/{id}',[ProductController::class,'destroy']);
@@ -56,3 +59,9 @@ Route::get('admin/home',[HomeController::class, 'adminhome'])->name('admin.home'
 // For Third Party API routes
 Route::get('post',[DataController::class,'postRequest']);
 Route::get('get','DataController@getRequest');
+
+Route::post('razorpay', [RazorpayPaymentController::class, 'index']);
+Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
+
+Route::get('/stripepayment', [PaymentController::class, 'index']);
+Route::post('/transaction', [PaymentController::class, 'makePayment'])->name('make-payment');

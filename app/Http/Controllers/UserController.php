@@ -19,7 +19,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::paginate(8);
+        $users = User::paginate(5);
         $totaluser = User::count();
         $activeuser = User::where('status','=','Active')->count();
         $inactiveuser = User::where('status','=','InActive')->count();

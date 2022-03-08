@@ -6,9 +6,17 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Product Details</h3>
+              <div class="row card-header">
+                  <div class="col-md-8">
+                    <h3 class="card-title">Product Details</h3>
+                  </div>
+                  <div class="col-md-3">
+                        <a class="nav-link" href="/cart-index">
+                            <i class="fa fa-shopping-cart float-right" style="font-size: 30px" aria-hidden="true"></i>
+                        </a>
+                  </div>
               </div>
+
               <!-- ./card-header -->
               <div class="card-body">
                 <table class="table table-bordered table-hover">

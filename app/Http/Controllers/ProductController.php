@@ -192,21 +192,26 @@ class ProductController extends Controller
 
     public function orderplaced(Request $request)
     {
-        $uid = Auth::id();
-        $cartdata = Cart::where('userid',$uid)->get();
-
-        foreach($cartdata as $cart)
-        {
-            $order = new Order;
-            $order->productid=$cart['productid'];
-            $order->userid=$cart['userid'];
-            $order->status='paid';
-            $order->payment=$request->payment;
-            $order->save();
-        }
-        Cart::where('userid',$uid)->delete();
-        return redirect('home');
+        // $uid = Auth::id();
+        // $cartdata = Cart::where('userid',$uid)->get();
+        // foreach($cartdata as $cart)
+        // {
+        //     $order = new Order;
+        //     $order->productid=$cart['productid'];
+        //     $order->userid=$cart['userid'];
+        //     $order->status='paid';
+        //     $order->payment='online';
+        //     $order->amount=$request->amount;
+        //     $order->save();
+        // }
+        // Cart::where('userid',$uid)->delete();
+        // return view('razorpayView');
 
         //return $request->input();
+    }
+
+    public function filterproduct(Request $request){
+        $products = Product::where('category',$request->selectedValue)->get();
+        return $products;
     }
 }

@@ -34,26 +34,18 @@
                     <input type="text" id="searchproduct" name="searchproduct" placeholder="Search........" />
                     <button name="submit">Submit</button>
                 </form>
-
-                <form action="" method="get">
-                    @csrf
                     <label>Filter Category</label>
-                        <select name="filterdata">
+                        <select name="filterdata" id='filterdata'>
+                            <option value="">-------</option>
                             <option value="samsung">Samsung</option>
                             <option value="apple">Apple</option>
                             <option value="vivo">Vivo</option>
                         </select>
-                        <button name="submit">Submit</button>
-                </form>
 
             </div>
-
-              <div>
-                <input type="text" name="search" id="search" class="form-control" placeholder="Search Data"/>
-              </div>
               <!-- ./card-header -->
               <div class="card-body">
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered table-hover" id="filtertable">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -155,7 +147,7 @@
 
         $('.chkStatus').change(function (){
             var id = $(this).parents("tr").attr("id");
-
+            var products;
             if($('#ChkStatus_'+id).is(':checked'))
             {
                 status = 'Avaliable';
@@ -184,6 +176,22 @@
             });
         });
 
+        $('#filterdata').change(function (){
+            // var id = $(this).parents("tr").attr("id");
+            var selectedValue = $(this).val();
+            $.ajax({
+                type : "GET",
+                url : "/filterproduct/",
+                data : {
+                    selectedValue:selectedValue,
+                },
+                success:function (response){
+                    // products = response;
+                    // ('#filter-data').DataTable(response);
+                    // console.log(products);
+                },
+            });
+        });
 
 
 
