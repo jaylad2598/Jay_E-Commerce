@@ -284,6 +284,13 @@ class ApiProductController extends Controller
 
     // }
 
-
+    public function getRelationData(Request $request)
+    {
+        $uid = 2;
+        $product = '';
+        //$product = Cart::where('userid',$uid)->with('phone')->get();
+        $product = User::where('id',$uid)->with(['product', 'product.product'])->get();
+        return $product;
+    }
 
 }

@@ -15,6 +15,12 @@ class Cart extends Model
         'userid',
     ];
 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function product()
     {
         return $this->hasOne(Product::class,'id','productid');
@@ -23,5 +29,9 @@ class Cart extends Model
     public function products()
     {
         return $this->hasMany(CartProduct::class,'cartid','id');
+    }
+
+    public function phone(){
+        return $this->hasOne(Cart::class,'userid', 'id');
     }
 }

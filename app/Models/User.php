@@ -43,8 +43,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function product(){
+        // id from user table
+        // userid from cart tbale
+
+        // return $this->hasOne(Cart::class,'userid', 'id'); // return aa single record from table
+        return $this->hasMany(Cart::class,'userid', 'id'); // return multiple all record from table
+        // return $this->belongsToMany(Cart::class,'id', 'userid'); // return single value from table.
+    }
+
     public function carts()
     {
         return $this->hasMany(Cart::class,'userid','id');
     }
+
 }

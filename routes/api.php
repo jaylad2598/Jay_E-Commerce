@@ -28,8 +28,7 @@ Route::post('/apigetproduct',[ApiProductController::class,'getProduct']);
 Route::post('/apiorderData',[ApiProductController::class,'makeOrder']);
 Route::post('/getPaymentDetails',[ApiProductController::class,'getPaymentDetails']);
 Route::post('/addToCart',[ApiProductController::class,'addToCart']);
-    
-
+Route::get('/getRelationData',[ApiProductController::class,'getRelationData']);
 
 
 

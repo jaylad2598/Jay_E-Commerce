@@ -40,6 +40,7 @@ Route::get('/cart/delete/{id}',[ProductController::class,'removecart']);
 Route::get('/ordernow',[ProductController::class,'ordernow']);
 Route::post('/orderplaced',[ProductController::class,'orderplaced']);
 
+
 Route::get('user-index',[UserController::class,'index']);
 Route::get('/edit-user/{id}',[UserController::class,'edit']);
 Route::post('/update/{id}',[UserController::class,'update']);
