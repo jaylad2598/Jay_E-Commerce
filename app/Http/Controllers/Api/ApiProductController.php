@@ -274,6 +274,16 @@ class ApiProductController extends Controller
 
     }
 
+    // public  function getChat(Request $request,$id)
+    // {
+    //     $logged_id = json_decode($request->uid);
+    //     //\DB::enableQueryLog();
+    //     $chat = Chat::where('toUser','=',$logged_id)->where('fromUser','=',$id)->get();
+    //     //dd(\DB::getQueryLog());
+    //     return response($chat);
+
+    // }
+
     public function getRelationData(Request $request)
     {
         $uid = 2;
